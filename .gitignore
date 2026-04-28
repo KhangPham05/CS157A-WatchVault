@@ -1,52 +1,13 @@
-# =====================
-# Java / Compiled
-# =====================
-*.class
-*.jar
-*.war
-*.ear
-target/
-out/
-build/
-
-# =====================
-# Database Credentials
-# =====================
+# Credentials - never commit
 db.properties
-*.env
-.env
-config.properties
 
-# =====================
-# IDE Files
-# =====================
+# Maven compiled output
+target/
 
-# IntelliJ
+# IDE files
 .idea/
 *.iml
-*.iws
-*.ipr
-
-# VS Code
 .vscode/
-*.code-workspace
 
-# =====================
-# OS Files
-# =====================
-.DS_Store        # macOS
-Thumbs.db        # Windows
-desktop.ini
-
-# =====================
-# Logs
-# =====================
-*.log
-logs/
-
-# =====================
-# Maven / Gradle
-# =====================
-*.class
-.gradle/
-gradle-wrapper.jar
+# OS files
+.DS_Store
