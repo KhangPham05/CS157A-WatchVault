@@ -1,30 +1,32 @@
 package watchvault.db;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;  
 
-/**
- * DBConnection – Data Layer
- * Manages the single JDBC connection to the MySQL WatchVault database.
- */
 public class DBConnection {
-
-    private static final String URL      = "jdbc:mysql://localhost:3306/watchvault?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String USER     = "root";
-    private static final String PASSWORD = "Jk80553053!"; // ← change to your MySQL root password
-
     private static Connection connection = null;
 
-    /** Returns (and lazily creates) the singleton connection. */
-    public static Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
+    public static Connection getConnection() {
+        if (connection == null) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-                throw new SQLException("MySQL JDBC Driver not found. Add mysql-connector-j.jar to /lib", e);
+                Properties props = new Properties();
+                InputStream input = DBConnection.class
+                    .getClassLoader()
+                    .getResourceAsStream("db.properties");
+                props.load(input);
+                String url = props.getProperty("db.url");
+                String user = props.getProperty("db.user");
+                String password = props.getProperty("db.password");
+
+                connection = DriverManager.getConnection(url, user, password);
+                System.out.println("Connected to database successfully!");
+            } catch (Exception e) {
+                System.out.println("Could not connect: " + e.getMessage());
+                System.out.println("Check MySQL is running and db.properties credentials are correct.");
             }
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
         }
         return connection;
     }

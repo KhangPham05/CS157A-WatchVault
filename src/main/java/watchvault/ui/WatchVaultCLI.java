@@ -1,12 +1,18 @@
 package watchvault.ui;
 
-import watchvault.db.DBConnection;
-import watchvault.model.Models.*;
-import watchvault.service.WatchVaultService;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+
+import watchvault.db.DBConnection;
+import watchvault.model.Models.Episode;
+import watchvault.model.Models.Genre;
+import watchvault.model.Models.Review;
+import watchvault.model.Models.Title;
+import watchvault.model.Models.User;
+import watchvault.model.Models.WatchHistoryEntry;
+import watchvault.model.Models.WatchlistEntry;
+import watchvault.service.WatchVaultService;
 
 /**
  * WatchVaultCLI – Presentation Layer
@@ -24,15 +30,8 @@ public class WatchVaultCLI {
     // ══════════════════════════════════════════════════════════
     public static void main(String[] args) {
         printBanner();
-        try {
             // test connection
             DBConnection.getConnection();
-            System.out.println("  ✓ Connected to MySQL database successfully.\n");
-        } catch (SQLException e) {
-            System.err.println("  ✗ Could not connect to database: " + e.getMessage());
-            System.err.println("  Make sure MySQL is running and credentials in DBConnection.java are correct.");
-            return;
-        }
 
         boolean running = true;
         while (running) {
