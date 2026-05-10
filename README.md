@@ -128,6 +128,10 @@ chmod +x compile.sh
 ./compile.sh
 java -jar WatchVault.jar
 ```
+or
+```bash
+mvn compile exec:java -Dexec.mainClass=watchvault.ui.watchvaultcli.java
+```
 
 **Windows:**
 ```
